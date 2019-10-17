@@ -1,8 +1,8 @@
 ---
 title: Calibration
+media_order: exemple.jpg
 date: '13:55 17-10-2019'
 ---
-
 
  There will be parts of calibration where you will be told to consult external ressources of Klipper for Pressure Advance tuning by example.
 
@@ -29,6 +29,6 @@ date: '13:55 17-10-2019'
 
    Why this multiplicative inverse ? This is because converting steps per mm to step_distance also inverts the relation steps/length(mm).
 
-   ![Why this multiplicative inverse ?](exemple.jpg)
+  ![](exemple.jpg)
 
  * The guide to tune the PA is at [Klipper PA document](https://www.klipper3d.org/Pressure_Advance.html "Offical Klipper PA document")
