@@ -612,6 +612,21 @@ pid_Kd=365.338
 min_temp: 0
 max_temp: 110
 ```
+
+Alternative way of controlling bed temperature is using watermark (bang-bang) algorithm instead of PID.
+
+Watermark is that just a basic threshold with on/off control.
+
+It needs just one parameter, max_delta (defaults to 2). 
+This defines a temperature range where the heater will turn on/off. 
+E.g. if you set it to 4 and your target bed temp is 90, the heater will turn on if your bed's temp is below 86 C and turn off if its above 94 C.
+
+```
+[heater_bed]
+...
+control: watermark
+```
+
 ### Homing Override
 
 Here you will configure the position of your FSR switch. You must configure your endstops before starting this process - as any changes to X or Y endstop position will move these values. 
