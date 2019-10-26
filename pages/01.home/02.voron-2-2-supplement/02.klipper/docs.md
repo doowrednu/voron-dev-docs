@@ -663,6 +663,21 @@ gcode:
    G0 X125 Y125 Z20 F3600
 ```
 
+### Safe Z Home (Homing Override alternative)
+
+Safe z home does not rehome X,Y when homing Z.
+
+homing_override requires the gcode to home all axes before homing Z.
+Which means a G28 Z will result in all three axes being homed instead of just Z.
+
+To enable safe z homing disable homing override and provide a X,Y coordinate of your Z endstop pin.
+
+```
+[safe_z_home]
+home_xy_position: 175.5,253
+z_hop: 5.0
+```
+
 ### Quad Gantry Levelling Settings
 
 ```
