@@ -22,6 +22,7 @@ If in doubt, ask in [Vordon Discord](https://discord.gg/wfwFKuf) help channels!
 Some screw length may be wrong:
 * Use M2x10 for the x/y endstop
 * Use M5x12 to attach Mobius 2/3
+* Use M3x16 to secure the toolhead page 41 of manual
 ## Missing screw hole in side skirts
 The side skirts do not have a hole in the middle for bottom panel attachement. Just add one with your tool of choice.
 
