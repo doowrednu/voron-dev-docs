@@ -11,9 +11,13 @@ Overall, using one of the stock configurations from the [Voron Github](https://g
 
 !! When first powering up your printer immediately check if your hotend and bed heaters are staying cold. If either one of them is heating on its own immediately power down your printer to prevent damage to the printer and its surroundings. 
 
+* Set all 3 jumpers for each driver to enable 1/16 microstepping if using RAMPS https://www.youtube.com/embed/l7QgDSAlBdg?start=7&end=82&version=3
 
+* Set VREF properly for your stepper drivers<br/>
+    Video:  https://www.youtube.com/watch?v=E6RWysjlaP4<br/>
+    Article:  https://e3d-online.dozuki.com/Guide/VREF+adjustment+A4988/92
 
-*  USB ports - make sure both USB serial lines are updated with the correct USB port of that MCU.
+* USB ports - make sure both USB serial lines are updated with the correct USB port of that MCU.
 
 * Motor Pin directions - you'll have to have the printer up and use OctoPrint to accomplish this. Use the jog controls in the terminal to make sure motors run in the expected direction. If a motor moves in the wrong direction, add a  ! to the enable_pin for that motor. Refer to [Voron Klipper](https://www.voron.dev/home/voron-2-2-supplement/klipper#xandysteppersaandbdrives) for adjustments to X/Y. Note that Klipper won't let you move an axis without homing, so you'll have to tell it to home, watch it move, and quickly cut power if it goes the wrong direction. Alternatively, you can add a couple lines to your config:
     ```
@@ -36,17 +40,17 @@ Overall, using one of the stock configurations from the [Voron Github](https://g
 * Probe Points - use points that are within the confines of your bed. The probe should be able to sense the bed at these locations and ideally have ~10+mm of bed around the probe at these points.
 
 
-* Endstops - While the printer is on, tap the microswitches or bring a magnet near the Hall sensor if you used one, and make sure both endstops trigger in the firmware. Use QUERY_ENDSTOPS to watch the status change. They should be "triggered" only when you're pushing them/holding the magnet up to them. If they are the opposite, add a ! to the enable pin for the offending endstop.
+* Endstops - While the printer is on, tap the microswitches or bring a magnet near the Hall sensor if you used one, and make sure both endstops trigger in the firmware. Use `QUERY_ENDSTOPS` to watch the status change. They should be "triggered" only when you're pushing them/holding the magnet up to them. If they are the opposite, add a ! to the enable pin for the offending endstop.
     * FSR  is also tested identically to the X/Y Endstops. Check the endstop query output, make sure it triggers when you lightly press on the FSR pin. If the FSR is lit after the release, adjust the potentiometer until it stops being lit. Also check if the shaft is free to move around in this casing.
 
-* Z Probe - the stock Z probe is a Normally-Closed probe. As such, it should light up normally, and if metal is brought near the probe, the light should dim/go away. Similarly, a QUERY_PROBE command should return "triggered" only when a piece of metal (ideally the bed) is near.
+* Z Probe - the stock Z probe is a Normally-Closed probe. As such, it should light up normally, and if metal is brought near the probe, the light should dim/go away. Similarly, a `QUERY_PROBE` command should return "triggered" only when a piece of metal (ideally the bed) is near.
 
 * Thermistors and heatsoak - when OctoPrint is on and connected, you should see correct room temperatures on both the Heatbed and Toolhead. If the temperature does not match the room temperature verify your sensor configuration before continuing. Set the temperature to ABS printing temperatures for both. The hotend fan should turn on when it is above 75° or if you set the target temperature above 75°. Heatsoak the printer (set it to a printing temp, let it sit for a half hour at temp). You may need to PID tune to complete this step without errors.
 * PID Tuning - This should not need to be done for the Heatbed. It's a giant slab of aluminum, and PID tuning would not improve your results. For the hotend, turn the print cooling fans on 100% and make sure the hotend fan is also running during PID tuning. This will avoid "heater not heating fast enough" errors later. Run a PID tune, take the values from the terminal output of it, and replace the hotend PID values in the config. Save and restart.
 
-* QGL - run a QUAD_GANTRY_LEVEL. It should probe the points you set and start adjusting to be in plane with your bed. You want to make sure it levels continuously until it reaches a tolerance of <0.01mm, ideally <0.0075mm. It may take several tries the first time you run the QGL. If the tolerance is shown to be going up or down, check your Z belts so they aren't loose. This is also a good time to make sure your Z idlers are directly perpendicular to their belts, as misaligned idlers can cause false "readings" for the QGL process.
+* QGL - run a `QUAD_GANTRY_LEVEL`. It should probe the points you set and start adjusting to be in plane with your bed. You want to make sure it levels continuously until it reaches a tolerance of <0.01mm, ideally <0.0075mm. It may take several tries the first time you run the QGL. If the tolerance is shown to be going up or down, check your Z belts so they aren't loose. This is also a good time to make sure your Z idlers are directly perpendicular to their belts, as misaligned idlers can cause false "readings" for the QGL process.
 
-* Z endstop - Issue the command Z_ENDSTOP_CALIBRATE, you move the nozzle with TESTZ Z=0 where `Z=+/-value` moves up and down. Use a paper or metal gauge of 0.10 mm thick to slide under this nozzle until it gets nearly snug. You can then issue `Z=-0.1` to check that nozzle is touching the bed and `ACCEPT` then `SAVE_CONFIG` to save to your config or you manually edit the config with this value from `ACCEPT`.
+* Z endstop - Issue the command `Z_ENDSTOP_CALIBRATE`, you move the nozzle with `TESTZ Z=0` where `Z=+/-value` moves up and down. Use a paper or metal gauge of 0.10 mm thick to slide under this nozzle until it gets nearly snug. You can then issue `Z=-0.1` to check that nozzle is touching the bed and `ACCEPT` then `SAVE_CONFIG` to save to your config or you manually edit the config with this value from `ACCEPT`.
     
     !! If the `position_endstop` is ~1.5 or more, the inductive probe will hit the FSR during the print. You'll have shorten this rod or adjust your slicer so pieces aren't near it.
     
