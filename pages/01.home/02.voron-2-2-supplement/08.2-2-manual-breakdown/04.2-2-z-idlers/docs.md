@@ -8,10 +8,11 @@ taxonomy:
 visible: true
 ---
 
-
-
 # Page 19
 ![](VORON2.2%20Manual-020.jpg)
+
+### Notes:
+Pulley not Pullet 
 
 # Page 20
 ![](VORON2.2%20Manual-021.jpg)
